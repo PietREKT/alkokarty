@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .p-toast {
+    @apply fixed top-4 right-4 z-50 w-80; /* Position and size */
+  }
+  .p-toast-container {
+    @apply flex flex-col space-y-2; /* Align items and spacing */
+  }
+  .p-toast-message {
+    @apply bg-blue-500 text-white rounded-lg shadow-lg p-4; /* Background and text */
+  }
+  .p-toast-message-info {
+    @apply bg-blue-500; /* Info message */
+  }
+  .p-toast-message-success {
+    @apply bg-green-500; /* Success message */
+  }
+  .p-toast-message-error {
+    @apply bg-red-500; /* Error message */
+  }
+  .p-toast-summary {
+    @apply font-bold; /* Bold summary */
+  }
+  .p-toast-detail {
+    @apply text-sm; /* Smaller details */
+  }
+}
+

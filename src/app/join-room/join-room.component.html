@@ -1,0 +1,7 @@
+<form [formGroup]="joinForm" (submit)="onSubmit()">
+  <label for="roomCode">Kod pokoju:</label>
+    <input id="roomCode" formControlName="code" type="text" required>
+  <label for="password">Hasło: </label>
+    <input id="password" formControlName="password" type="password">
+    <input type="submit">
+</form>

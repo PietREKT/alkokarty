@@ -1,0 +1,24 @@
+<form [formGroup]="createRoomForm" (ngSubmit)="onSubmit()" class="room-form">
+  <label for="maxPlayers" class="form-label">Maksymalna ilość graczy:</label>
+  <input id="maxPlayers" class="form-input" type="number" formControlName="maxPlayers" max="25" min="1" step="1"
+         (click)="showError = false">
+
+  <div class="checkbox-container">
+    <input type="checkbox" class="checkbox-input" name="containsPassword" id="addPassword" formControlName="isChecked"
+           (change)="checkBoxChange($event)">
+    <label for="addPassword" class="form-label">Utwórz hasło</label>
+  </div>
+  <div class="passwordInput" *ngIf="isChecked">
+    <label for="passwordField" class="form-label">Hasło: </label>
+    <input id="passwordField" class="form-input" type="password" placeholder="password" formControlName="password"
+           (click)="showError = false">
+    <br>
+  </div>
+
+  <div class="error-box" *ngIf="showError">
+    <div *ngIf="createRoomForm.controls.maxPlayers.errors?.['required']">Musisz wybrać maksymalną ilość graczy</div>
+    <div *ngIf="createRoomForm.controls.maxPlayers.errors?.['min']">Nie możesz stworzyć pokoju na mniej niż 2 osoby!
+    </div>
+  </div>
+  <input type="submit" value="Zaczynajmy!" class="submit-btn">
+</form>

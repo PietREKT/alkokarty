@@ -1,0 +1,21 @@
+<h3>Room code: {{room?.code}}</h3>
+
+<h4 *ngIf="!room?.playing">Oczekiwanie na start gry...</h4>
+
+<div id="playerList">
+  <ul *ngFor="let player of this.room?.players">
+    <li>{{JSON.parse(JSON.stringify(player)).name}}</li>
+  </ul>
+</div>
+
+<p *ngIf="showHowManyVoted">Zagłosowało: {{room?.playersVotedCount}}/{{room?.players!.length}} graczy.</p>
+<div class="error-box" *ngIf="showError">
+  <p>{{error}}</p>
+</div>
+<div id="card" *ngIf="room?.playing">
+  <p>{{card}}</p>
+</div>
+
+<button *ngIf="(room?.hostToken === playerToken) && !(room?.playing)" (click)="beginGame()">Rozpocznij grę</button>
+<button *ngIf="room?.playing" (click)="voteForNextCard()">Następna karta!</button>
+<button (click)="leave()">Wyjdź z pokoju</button>
