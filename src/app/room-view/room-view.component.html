@@ -1,21 +1,51 @@
-<h3>Room code: {{room?.code}}</h3>
+<div class="flex flex-col md:flex-row items-start justify-between p-4 space-y-4 md:space-y-0 md:space-x-4">
+  <!-- Player List Section (Mobile Toggle) -->
+  <div class="w-full md:w-1/4 bg-white_smoke-700 p-4 rounded-lg shadow-md">
+    <h3 class="text-lg font-semibold text-onyx-300">Kod pokoju: {{room?.code}}</h3>
+    <h4 *ngIf="!room?.playing" class="text-md text-onyx-200">Oczekiwanie na start gry...</h4>
 
-<h4 *ngIf="!room?.playing">Oczekiwanie na start gry...</h4>
+    <!-- Player List, only visible if the game hasn't started or if the player clicked to expand -->
+    <div *ngIf="!room?.playing || showPlayerList">
+      <div id="playerList">
+        <ul class="list-disc pl-5 text-onyx-300">
+          <li *ngFor="let player of this.room?.players">{{JSON.parse(JSON.stringify(player)).name}}</li>
+        </ul>
+      </div>
+    </div>
 
-<div id="playerList">
-  <ul *ngFor="let player of this.room?.players">
-    <li>{{JSON.parse(JSON.stringify(player)).name}}</li>
-  </ul>
+    <!-- Toggle Button for Mobile -->
+    <button *ngIf="room?.playing"
+            (click)="showPlayerList = !showPlayerList"
+            class="bg-glaucous-600 text-white py-2 px-4 rounded-lg hover:bg-glaucous-300 w-full mt-4">
+      {{ showPlayerList ? 'Zwiń listę graczy' : 'Pokaż listę graczy' }}
+    </button>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="w-full md:w-3/4 bg-white_smoke-700 p-4 rounded-lg shadow-md space-y-4">
+    <p *ngIf="showHowManyVoted" class="text-onyx-300">Zagłosowało: {{room?.playersVotedCount}}/{{room?.players!.length}} graczy.</p>
+
+    <div *ngIf="room?.playing" id="card" class="bg-white_smoke-700 p-4 rounded-lg text-center">
+      <p class="text-onyx-300">{{card}}</p>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+      <button *ngIf="(room?.hostToken === playerToken) && !(room?.playing)"
+              (click)="beginGame()"
+              class="bg-glaucous-600 text-white py-2 px-4 rounded-lg hover:bg-glaucous-300">
+        Rozpocznij grę
+      </button>
+
+      <button *ngIf="room?.playing"
+              (click)="voteForNextCard()"
+              class="bg-yellow_green-500 text-white py-2 px-4 rounded-lg hover:bg-yellow_green-300">
+        Następna karta!
+      </button>
+
+      <button (click)="leave()"
+              class="bg-onyx-300 text-white py-2 px-4 rounded-lg hover:bg-onyx-400">
+        Wyjdź z pokoju
+      </button>
+    </div>
+  </div>
 </div>
-
-<p *ngIf="showHowManyVoted">Zagłosowało: {{room?.playersVotedCount}}/{{room?.players!.length}} graczy.</p>
-<div class="error-box" *ngIf="showError">
-  <p>{{error}}</p>
-</div>
-<div id="card" *ngIf="room?.playing">
-  <p>{{card}}</p>
-</div>
-
-<button *ngIf="(room?.hostToken === playerToken) && !(room?.playing)" (click)="beginGame()">Rozpocznij grę</button>
-<button *ngIf="room?.playing" (click)="voteForNextCard()">Następna karta!</button>
-<button (click)="leave()">Wyjdź z pokoju</button>

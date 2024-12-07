@@ -25,6 +25,7 @@ import {Subscription} from "rxjs";
 export class CreateRoomComponent implements OnInit, OnDestroy {
 
   showError : boolean = false;
+  error = "";
 
   constructor(private rxStomp: RxStompService, private router: Router, private roomService: TransferRoomDataService) {
   }
@@ -50,16 +51,29 @@ export class CreateRoomComponent implements OnInit, OnDestroy {
       this.createRoomForm.controls.password.value
     );
     this.submitPressed = true
-    if (!this.createRoomForm.invalid) {
+    if (this.checkErrors()) {
       this.rxStomp.publish({destination: '/app/rooms/create', body: JSON.stringify(roomData)});
-    } else {
-      this.showError = true;
     }
+  }
 
+  private checkErrors(){
+      if(this.createRoomForm.controls.maxPlayers.errors){
+          this.showError = true;
+          this.error = "Musisz podać minimalną liczbę graczy(co najmniej 2)";
+          return false;
+      }
+      else if (this.createRoomForm.controls.isChecked.value
+        && this.createRoomForm.controls.password.value?.length == 0){
+          this.showError = true;
+          this.error = "Utwórz hasło lub odznacz pole \"Utwórz hasło\"";
+          return false;
+      }
+      return true;
   }
 
   checkBoxChange(event: any) {
     this.isChecked = event.target.checked;
+    this.showError = false;
   }
 
   ngOnInit(): void {
@@ -88,5 +102,9 @@ export class CreateRoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe();
+  }
+
+  onInputClick() {
+    this.showError = false;
   }
 }

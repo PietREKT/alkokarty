@@ -1,5 +1,18 @@
-  <h1 class="header">Już niewiele dzieli cię od rozpoczęcia przygody. Wybierz czy wolisz stworzyć nowy pokój, czy dołączyć do istniejącego</h1>
-  <div class="buttons">
-    <button (click)="router.navigate(['/join'])">Dołącz do pokoju</button>
-    <button (click)="router.navigate(['/create'])">Stwórz pokój</button>
+<div class="bg-white_smoke-700 w-full h-screen flex items-center justify-center p-4">
+  <div class="text-center w-full max-w-sm">
+    <h1 class="text-base sm:text-lg font-semibold mb-4 text-onyx-200">Już niewiele dzieli cię od rozpoczęcia przygody!</h1>
+    <div class="flex flex-col justify-center items-center w-full gap-4 mt-4">
+      <button class="bg-glaucous-600 text-white_smoke-700 py-2 px-4 rounded-md text-sm sm:text-base hover:bg-glaucous-500 transition-all w-full sm:w-auto"
+              (click)="router.navigate(['/join'])"
+      >
+        Dołącz do pokoju
+      </button>
+      <p class="text-onyx-200 text-sm sm:text-base">albo</p>
+      <button class="bg-rusty_red-700 text-white_smoke-700 py-2 px-4 rounded-md text-sm sm:text-base hover:bg-rusty_red-600 transition-all w-full sm:w-auto"
+              (click)="router.navigate(['/create'])"
+      >
+        Stwórz pokój
+      </button>
+    </div>
   </div>
+</div>

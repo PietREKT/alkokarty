@@ -26,6 +26,7 @@ export class RoomViewComponent implements OnInit, OnDestroy {
   showHowManyVoted : boolean = false;
   showError: boolean = false;
   error : any = '';
+  showPlayerList = false;
 
 
   constructor(private roomService: TransferRoomDataService, private rxStomp: RxStompService,
@@ -98,6 +99,7 @@ export class RoomViewComponent implements OnInit, OnDestroy {
         })
       )
       this.subscriptions.push(this.rxStomp.watch('/user/queue/error').subscribe(msg => {
+        console.log(msg.body)
         this.error = msg.body;
         this.showError = true;
       }))

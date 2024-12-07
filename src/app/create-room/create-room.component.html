@@ -1,24 +1,41 @@
-<form [formGroup]="createRoomForm" (ngSubmit)="onSubmit()" class="room-form">
-  <label for="maxPlayers" class="form-label">Maksymalna ilość graczy:</label>
-  <input id="maxPlayers" class="form-input" type="number" formControlName="maxPlayers" max="25" min="1" step="1"
-         (click)="showError = false">
+<form [formGroup]="createRoomForm" (ngSubmit)="onSubmit()" class="bg-white_smoke-700 p-6 rounded-lg w-full sm:w-3/4 md:w-1/3 mx-auto">
 
-  <div class="checkbox-container">
+  <!-- Max Players Field -->
+  <label for="maxPlayers" class="form-label text-onyx-200 text-sm sm:text-base">Maksymalna ilość graczy:</label>
+  <input id="maxPlayers" class="form-input bg-rusty_red-700 text-white_smoke-500 placeholder-white_smoke-500 border rounded py-2 px-4 w-full sm:w-4/5 max-w-lg mx-auto"
+         type="number" formControlName="maxPlayers" max="25" min="1" step="1" (click)="showError = false">
+
+  <!-- Password Checkbox -->
+  <div class="flex items-center mt-4">
     <input type="checkbox" class="checkbox-input" name="containsPassword" id="addPassword" formControlName="isChecked"
            (change)="checkBoxChange($event)">
-    <label for="addPassword" class="form-label">Utwórz hasło</label>
-  </div>
-  <div class="passwordInput" *ngIf="isChecked">
-    <label for="passwordField" class="form-label">Hasło: </label>
-    <input id="passwordField" class="form-input" type="password" placeholder="password" formControlName="password"
-           (click)="showError = false">
-    <br>
+    <label for="addPassword" class="form-label text-onyx-200 text-sm sm:text-base ml-2">Utwórz hasło</label>
   </div>
 
-  <div class="error-box" *ngIf="showError">
-    <div *ngIf="createRoomForm.controls.maxPlayers.errors?.['required']">Musisz wybrać maksymalną ilość graczy</div>
-    <div *ngIf="createRoomForm.controls.maxPlayers.errors?.['min']">Nie możesz stworzyć pokoju na mniej niż 2 osoby!
-    </div>
+  <!-- Password Field (if checkbox is checked) -->
+  <div class="passwordInput mt-4" *ngIf="isChecked">
+    <label for="passwordField" class="form-label text-onyx-200 text-sm sm:text-base">Hasło:</label>
+    <input id="passwordField" class="form-input bg-rusty_red-700 text-white_smoke-500 placeholder-white_smoke-500 border rounded py-2 px-4 w-full sm:w-4/5 max-w-lg mx-auto"
+           type="password" placeholder="password" formControlName="password" (click)="showError = false">
   </div>
-  <input type="submit" value="Zaczynajmy!" class="submit-btn">
+
+  <!-- Toast Error Box -->
+  <div *ngIf="showError"
+       class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-all duration-500 ease-in-out flex items-center space-x-3" role="alert">
+    <div class="inline-flex items-center justify-center w-10 h-10 text-red-500 bg-red-100 rounded-full dark:bg-red-800 dark:text-red-200">
+      <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+      </svg>
+    </div>
+    <div class="flex-1 text-sm font-normal">{{ this.error }}</div>
+    <button type="button" (click)="onInputClick()" class="ml-3 p-2 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" aria-label="Close">
+      <span class="sr-only">Close</span>
+      <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Submit Button -->
+  <input type="submit" value="Zaczynajmy!" class="submit-btn bg-glaucous-600 text-white_smoke-500 py-2 px-4 border rounded w-full sm:w-4/5 max-w-lg mx-auto mt-4 cursor-pointer hover:bg-glaucous-500 transition-all">
 </form>
