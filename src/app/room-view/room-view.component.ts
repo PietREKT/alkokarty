@@ -63,14 +63,12 @@ export class RoomViewComponent implements OnInit, OnDestroy {
   }
 
   private updateRoom(room: any) {
-    console.log('Updating room: ' + room);
     this.room = {...room};
     this.cd.markForCheck();
   }
 
   private subscribeAndHandle() {
     if (!this.room?.code) {
-      console.log("RoomCode is null, can't subscribe!");
     } else {
       this.subscriptions.push(this.rxStomp.watch('/room/' + this.room?.code + "/card").subscribe(msg => {
         this.showError = false;
@@ -88,18 +86,15 @@ export class RoomViewComponent implements OnInit, OnDestroy {
       this.subscriptions.push(this.rxStomp.watch('/room/' + this.room?.code + "/join").subscribe(msg => {
           console.log("Player joined!!")
           this.updateRoom(JSON.parse(msg.body));
-          console.log(this.room)
         })
       )
       this.subscriptions.push(this.rxStomp.watch('/room/' + this.room?.code + '/beginGame').subscribe(msg => {
         this.showError = false;
-        console.log(msg.body)
           this.updateRoom(JSON.parse(msg.body));
         this.card = this.room?.currentCard!;
         })
       )
       this.subscriptions.push(this.rxStomp.watch('/user/queue/error').subscribe(msg => {
-        console.log(msg.body)
         this.error = msg.body;
         this.showError = true;
       }))

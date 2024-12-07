@@ -55,7 +55,7 @@ export class JoinRoomComponent implements OnDestroy{
 
       this.subscriptions.push(this.rxStomp.watch('/user/queue/error').subscribe(msg => {
         this.showError = true;
-        this.error = "";
+        this.error = msg.body;
       }))
 
       this.rxStomp.publish({destination: '/app/rooms/join/' + data.roomCode, body: JSON.stringify(data)});

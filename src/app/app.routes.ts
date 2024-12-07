@@ -8,8 +8,8 @@ import {RoomViewComponent} from "./room-view/room-view.component";
 
 export const routes: Routes = [
   {path: '', component: CreatePlayerComponent},
-  {path: 'roomChoice', component: RoomChoiceComponent},
-  {path: 'join', component: JoinRoomComponent},
-  {path: 'create', component: CreateRoomComponent},
-  {path: 'room/:code', component: RoomViewComponent}
+  {path: 'roomChoice', component: RoomChoiceComponent, canActivate: [PlayerGuard]},
+  {path: 'join', component: JoinRoomComponent, canActivate: [PlayerGuard]},
+  {path: 'create', component: CreateRoomComponent, canActivate: [PlayerGuard]},
+  {path: 'room/:code', component: RoomViewComponent, canActivate: [PlayerGuard]}
 ];

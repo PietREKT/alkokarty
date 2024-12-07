@@ -1,7 +1,7 @@
 import {RxStompConfig} from "@stomp/rx-stomp";
 
 export const myRxStompConfig : RxStompConfig = {
-  brokerURL: 'http://localhost:8080/ws',
+  brokerURL: 'https://2a76-2a02-a315-41d3-4800-3477-eafa-672b-6b27.ngrok-free.app/ws',
 
   connectHeaders: {},
 
