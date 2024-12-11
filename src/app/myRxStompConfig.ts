@@ -1,7 +1,7 @@
 import {RxStompConfig} from "@stomp/rx-stomp";
 
 export const myRxStompConfig : RxStompConfig = {
-  brokerURL: 'https://alkokarty.onrender.com/ws',
+  brokerURL: 'https://alkokarty.onrender.com:8080/ws',
 
   connectHeaders: {},
 
