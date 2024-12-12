@@ -39,7 +39,6 @@ export class RoomViewComponent implements OnInit, OnDestroy {
       this.http.get<Room>('https://alkokarty.onrender.com/room/getRoom',
         {params: new HttpParams().append('playerToken', this.playerToken!), observe: 'response'})
         .subscribe({next: res => {
-            console.log(res.status)
             if (res.status == 200) {
               this.room = res.body;
               if (res.body?.playing){
@@ -83,7 +82,6 @@ export class RoomViewComponent implements OnInit, OnDestroy {
         })
       );
       this.subscriptions.push(this.rxStomp.watch('/room/' + this.room?.code + "/join").subscribe(msg => {
-          console.log("Player joined!!")
           this.updateRoom(JSON.parse(msg.body));
         })
       )

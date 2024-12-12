@@ -81,8 +81,6 @@ export class CreateRoomComponent implements OnInit, OnDestroy {
         next: msg => {
           if (!msg.body.startsWith("Valid: ") && !msg.body.startsWith("Token: ")) {
             let room: Room = JSON.parse(msg.body);
-            console.log(room);
-            // this.roomService.room = room;
             this.router.navigate(['room/' + room.code])
             this.unsubscribe();
           }
