@@ -36,7 +36,7 @@ export class RoomViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.playerToken = sessionStorage.getItem("cardsToken");
     if (this.room === null) {
-      this.http.get<Room>('http://localhost:8080/room/getRoom',
+      this.http.get<Room>('https://alkokarty.onrender.com/room/getRoom',
         {params: new HttpParams().append('playerToken', this.playerToken!), observe: 'response'})
         .subscribe({next: res => {
             console.log(res.status)
@@ -52,11 +52,10 @@ export class RoomViewComponent implements OnInit, OnDestroy {
               this.leave();
             }
           }, error: err => {
-            console.log(err);
             this.router.navigate(['roomChoice']);
             this.leave();
           }});
-      this.http.post('http://localhost:8080/player/activate', this.playerToken).subscribe(res => {})
+      this.http.post('https://alkokarty.onrender.com/player/activate', this.playerToken).subscribe(res => {})
     } else {
       this.subscribeAndHandle();
     }

@@ -25,7 +25,7 @@ export class PlayerGuard implements CanActivate {
       console.error("Token is null. Returning false")
       return of(false);
     }
-    return this.http.get<boolean>('http://localhost:8080/player/validate', {
+    return this.http.get<boolean>('https://alkokarty.onrender.com/player/validate', {
       params: {token}
     })
       .pipe(
